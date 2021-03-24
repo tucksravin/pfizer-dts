@@ -15,7 +15,7 @@ private String timePoint;
 //if false, then peripheral blood
 private String marrow;
 
-private String lysate;
+private boolean lysate;
 
 /*
 private String gli1Value;
@@ -50,12 +50,65 @@ public void setAcc(String s)
 
 public void setCDate(String s)
 {
-  cDate = s;
+  String year = "20"+s.substring(s.length()-2);
+  String monthName = s.substring(s.length()-8,s.length()-5);
+  String month ="??";
+  switch(monthName)
+  {
+    case "Jan":
+      month="01";
+      break;
+    case "Feb":
+      month="02";
+      break;
+    case "Mar":
+      month="03";
+      break;
+    case "Apr":
+      month="04";
+      break;
+    case "May":
+      month="05";
+      break;
+    case "Jun":
+      month="06";
+      break;
+    case "Jul":
+      month="07";
+      break;
+    case "Aug":
+      month="08";
+      break;
+    case "Sep":
+      month="09";
+      break;
+    case "Oct":
+      month="10";
+      break;
+    case "Nov":
+      month="11";
+      break;
+    case "Dec":
+      month="12";
+      break;
+
+
+  }
+  String day = s.substring(0,s.length()-9);
+
+  if(Integer.parseInt(day)<10)
+    day = "0"+day;
+
+  cDate = year + month + day;
 }
 
 public void setCTime(String s)
 {
-  cTime = s;
+  if(s.length()<5)
+  s="0"+s;
+  String o = s;
+  o = s.substring(0, s.length()-3)+ s.substring(s.length()-2)+"00";
+  cTime = o;
 }
 
 public void setTimePoint(String s)
@@ -70,7 +123,11 @@ public void setMarrow(String s)
 
 public void setLysate(String s)
 {
-  lysate = s;
+
+  if(s.equals("-")||s.isEmpty())
+    lysate=false;
+  else
+    lysate=true;
 }
 
 // gets
@@ -115,7 +172,7 @@ public String getMarrow()
   return marrow;
 }
 
-public String getLysate()
+public boolean getLysate()
 {
   return lysate;
 }

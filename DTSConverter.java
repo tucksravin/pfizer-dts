@@ -34,7 +34,7 @@ public class DTSConverter{
 
     */
 
-
+//copies in data into Sample object and builds a list.
     try( Scanner sc = new Scanner(new File("inv.csv"));){
       sc.useDelimiter(",");   //sets the delimiter pattern
 
@@ -97,6 +97,88 @@ public class DTSConverter{
 
             e.printStackTrace();
         }
+
+
+  try {
+
+        // create a write
+
+        BufferedWriter writer =  new BufferedWriter(new FileWriter("output.csv"));
+
+        // write header record
+        writer.write("STUDY,PATIENT,VISIT,EFF_ACCESSION_NUM,MBIO_SAMP_DATE,MBIO_SAMP_TIME,EFF_PLN_TIME,MBIO_SOURCE,MBIO_SAMP_SITE,MBIO_SAMP_SITE_DET,MBIO_SAMP_ORIGIN,MBIO_PROCED,MBIO_COLL_PROC_DATE,MBIO_COLL_PROC_DATE,MBIO_SLIDES_CUT_DATE,MBIO_SENT_LAB_DATE,MBIO_PROCESS,MBIO_PROCESS_DET,MBIO_ANALYTE_2,MBIO_TEST_DESCR,MBIO_ANALYT_METH,MBIO_ANAL_METH_SPEC,MBIO_ANAL_METH_DET,MBIO_ANALYZED_DATE,MBIO_QUAL_RES,MBIO_PARM_2,MBIO_QUANTIT_RES,MBIO_RES_UNIT,MBIO_GENE_ALTER,MBIO_VENDOR,MBIO_COM_VEN");
+        writer.newLine();
+
+        Iterator<Sample> it = samples.iterator();
+        String s = "";
+        String o = "";
+        Sample sam;
+
+        while(it.hasNext())
+        {
+          sam=it.next();
+
+          s = "B1371012, "+sam.getSite()+sam.getSub() + "," + sam.getTimePoint() + "," + sam.getAcc() + "," + sam.getCDate() + "," + sam.getCTime() + ",,";
+          if(sam.getMarrow().equals("BM"))
+            s=s+"BONE MARROW,,,,BONE MARROW ASPIRATE,,,,,";
+          else
+            s=s+"BLOOD,,,,PERIPHERAL BLOOD,,,,,";
+
+          for(int i=0 ; i<7 ; i++)
+          {
+              switch(i)
+              {
+                case 0:
+                  o=s+"GAPDH,CONTROL FOR GLI1 EXPRESSION,";
+                  break;
+
+                case 1:
+                  o=s+"GLI1,,";
+                  break;
+
+                case 2:
+                  o=s+"GAPDH,CONTROL FOR GLI3 EXPRESSION,";
+                  break;
+
+                case 3:
+                  o=s+"GLI3R,,";
+                  break;
+
+                case 4:
+                  o=s+"GLI3FL,,";
+                  break;
+
+                case 5:
+                  o=s+"GAPDH,CONTROL FOR SMO EXPRESSION,";
+                  break;
+
+                case 6:
+                  o=s+"SMO,,";
+                  break;
+              }
+
+              o=o+"WESTERN BLOT,,,";
+
+              if(sam.getLysate())
+                o=o+"tbd,,,tbd,RFU,,,,,CEDARS-SINAI,";
+              else
+                o=o+",,,,RFU,,,,,CEDARS-SINAI,INSUFFICIENT CELL QUANTITY FOR ANALYSIS";
+
+                writer.write(o);
+                writer.newLine();
+          }
+
+
+        }
+        // write all records
+
+
+        //close the writer
+        writer.close();
+
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
 
   }
 
