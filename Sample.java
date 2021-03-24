@@ -113,7 +113,68 @@ public void setCTime(String s)
 
 public void setTimePoint(String s)
 {
-  timePoint = s;
+  String o =s;
+
+  switch (s)
+  {
+  case "SCR":
+    o="SCREENING";
+    break;
+
+  case "Unplanned":
+    o="UNPLANNED";
+    break;
+
+  case "Unscheduled":
+    o="UNPLANNED";
+    break;
+
+  case "C1D1":
+    o="CYCLE 1 DAY 1";
+    break;
+
+  case "C1D7":
+    o="CYCLE 1 DAY 7";
+    break;
+
+  case "C2D1":
+    o="CYCLE 2 DAY 1";
+    break;
+
+  case "C7D1":
+    o="CYCLE 7 DAY 1";
+    break;
+
+  case "C13D1":
+    o="CYCLE 13 DAY 1";
+    break;
+
+  case "C25D1":
+    o="CYCLE 25 DAY 1";
+    break;
+
+  case "C37D1":
+    o="CYCLE 37 DAY 1";
+    break;
+
+  case "C49D1":
+    o="CYCLE 49 DAY 1";
+    break;
+
+  case "EOT":
+    o="END_OF_TREATMENT";
+    break;
+
+  case "End of Treatment":
+    o="END_OF_TREATMENT";
+    break;
+
+  case "Not Indicated":
+    o="UNKNOWN";
+    break;
+
+  }
+  timePoint = o;
 }
 
 public void setMarrow(String s)
