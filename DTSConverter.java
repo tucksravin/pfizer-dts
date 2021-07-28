@@ -120,9 +120,9 @@ public class DTSConverter{
 
           s = "B1371012, "+sam.getSite()+sam.getSub() + "," + sam.getTimePoint() + "," + sam.getAcc() + "," + sam.getCDate() + "," + sam.getCTime() + ",,";
           if(sam.getMarrow().equals("BM"))
-            s=s+"BONE MARROW,,,,BONE MARROW ASPIRATE,,,,,";
+            s=s+"BONE MARROW,,,,BONE MARROW ASPIRATE,,,,,,,";
           else
-            s=s+"BLOOD,,,,PERIPHERAL BLOOD,,,,,";
+            s=s+"BLOOD,,,,PERIPHERAL BLOOD,,,,,,,";
 
           for(int i=0 ; i<7 ; i++)
           {
@@ -157,12 +157,12 @@ public class DTSConverter{
                   break;
               }
 
-              o=o+"WESTERN BLOT,,,";
+              o=o+"WESTERN BLOT,";
 
               if(sam.getLysate())
-                o=o+"tbd,,,tbd,RFU,,,,,CEDARS-SINAI,";
+                o=o+",,20210101,,,100.00,RFU,,CEDARS-SINAI,";
               else
-                o=o+",,,,RFU,,,,,CEDARS-SINAI,INSUFFICIENT CELL QUANTITY FOR ANALYSIS";
+                o=o+",,,,,,RFU,,CEDARS-SINAI,INSUFFICIENT CELL QUANTITY FOR ANALYSIS";
 
                 writer.write(o);
                 writer.newLine();
